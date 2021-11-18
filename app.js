@@ -24,25 +24,24 @@ app.use((req, res, next) => {
   next();
 });
 
-// app.use(express.json());
+// middleware pour obtenir un objet JS
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
-// app.post("/",(req, res, next) => {
-//   console.log(req.body);
-//   res.status(201).json({
-//     message: 'Objet créé !'
-//   });
-// });
+// import de la route user
+const userRoutes = require('./routes/user');
+// router d'authentification
+app.use('/api/auth', userRoutes);
 
-
-
-
-app.use((req, res, next) => {
-  res.json({ message: 'Votre requête a bien été reçue !' });
-  next();
+app.post('/', (req, res, next) => {
+  console.log(req.body);
+  res.status(201).json({
+    message: 'Objet créé !'
+  });
 });
 
-app.use((req, res, next) => {
-  console.log('Réponse envoyée avec succès !');
-});
+
+
+
 
 module.exports = app;
