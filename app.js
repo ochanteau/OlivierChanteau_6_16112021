@@ -26,19 +26,24 @@ app.use((req, res, next) => {
 
 // middleware pour obtenir un objet JS
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+// app.use(express.urlencoded({ extended: false }));
 
 // import de la route user
 const userRoutes = require('./routes/user');
 // router d'authentification
 app.use('/api/auth', userRoutes);
 
-app.post('/', (req, res, next) => {
-  console.log(req.body);
-  res.status(201).json({
-    message: 'Objet créé !'
-  });
-});
+
+
+
+
+
+// app.post('/', (req, res, next) => {
+//   console.log(req.body);
+//   res.status(201).json({
+//     message: 'Objet créé !'
+//   });
+// });
 
 
 

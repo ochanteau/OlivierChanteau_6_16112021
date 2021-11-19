@@ -1,9 +1,16 @@
+// import du module bcrypt
 const bcrypt = require ("bcrypt");
+// import du model user
 const user = require("../models/user");
 
 // import module Dotenv pour les varibales d'environnement
 const dotenv = require("dotenv");
 dotenv.config();
+
+// import du module jwt
+const jwt = require('jsonwebtoken');
+
+// fonction pour s inscrire
 
 exports.signup = (req, res, next) => {
     bcrypt.hash(req.body.password, 10)
@@ -19,8 +26,10 @@ exports.signup = (req, res, next) => {
       .catch(error => res.status(500).json({ error }));
   };
 
+
+  // fonction pour se loguer
   exports.login = (req, res, next) => {
-    User.findOne({ email: req.body.email })
+    user.findOne({ email: req.body.email })
       .then(user => {
         if (!user) {
           return res.status(401).json({ error: 'Utilisateur non trouvé !' });
@@ -32,7 +41,11 @@ exports.signup = (req, res, next) => {
             }
             res.status(200).json({
               userId: user._id,
-              token: `${USER_TOKEN}`
+              token: jwt.sign(
+                { userId: user._id },
+                `${USER_TOKEN}`,
+                { expiresIn: '24h' }
+              )
             });
           })
           .catch(error => res.status(500).json({ error }));
