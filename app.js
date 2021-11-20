@@ -15,6 +15,12 @@ mongoose.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PA
   .then(() => console.log('Connexion à MongoDB réussie !'))
   .catch(() => console.log('Connexion à MongoDB échouée !'));
 
+  // import du modle path
+  const path = require('path');
+
+// middleware pour renvoyer les fichiers images
+  app.use('/images', express.static(path.join(__dirname, 'images')));
+
 // middleware pour autoriser les connections à l'API
 // (vérifier si je laisse PATCH ET OPTIONS)
 app.use((req, res, next) => {
