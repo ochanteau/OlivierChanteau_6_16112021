@@ -1,7 +1,7 @@
 // import du module bcrypt
 const bcrypt = require ("bcrypt");
 // import du model user
-const user = require("../models/user");
+const User = require("../models/user");
 
 // import module Dotenv pour les varibales d'environnement
 const dotenv = require("dotenv");
@@ -29,7 +29,7 @@ exports.signup = (req, res, next) => {
 
   // fonction pour se loguer
   exports.login = (req, res, next) => {
-    user.findOne({ email: req.body.email })
+    User.findOne({ email: req.body.email })
       .then(user => {
         if (!user) {
           return res.status(401).json({ error: 'Utilisateur non trouvé !' });
@@ -43,7 +43,7 @@ exports.signup = (req, res, next) => {
               userId: user._id,
               token: jwt.sign(
                 { userId: user._id },
-                `${USER_TOKEN}`,
+                `${process.env.USER_TOKEN}`,
                 { expiresIn: '24h' }
               )
             });
