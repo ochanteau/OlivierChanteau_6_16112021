@@ -6,7 +6,7 @@ const app = express();
 const dotenv = require("dotenv");
 dotenv.config();
 
-// import du pacquet mongoose et connection à la base de donnée
+// import  mongoose et connection à la base de donnée
 const mongoose = require('mongoose');
 
 mongoose.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@cluster0.jiuzr.mongodb.net/cluster0?retryWrites=true&w=majority`,
@@ -26,32 +26,26 @@ app.use((req, res, next) => {
   next();
 });
 
+
+
 // middleware pour obtenir un objet JS
 app.use(express.json());
-// app.use(express.urlencoded({ extended: false }));
-
-// import de la route user
-const userRoutes = require('./routes/user');
-// router d'authentification
-app.use('/api/auth', userRoutes);
+app.use(express.urlencoded({ extended: false }));
 
 
-  // import du module path 
+// import du module path 
 const path = require('path');
 
-
-
 // middleware pour renvoyer les fichiers images
-  app.use('/images', express.static(path.join(__dirname, 'images')));
+app.use('/images', express.static(path.join(__dirname, 'images')))
 
+// import des routes
+const userRoutes = require('./routes/user');
+const saucesRoutes = require('./routes/sauces')
+// routers
+app.use('/api/auth', userRoutes);
+app.use('/api/sauces', saucesRoutes);
 
-
-// app.post('/', (req, res, next) => {
-//   console.log(req.body);
-//   res.status(201).json({
-//     message: 'Objet créé !'
-//   });
-// });
 
 
 
