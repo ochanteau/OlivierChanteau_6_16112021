@@ -25,7 +25,7 @@ mongoose.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PA
 
 
 
-// middleware CORS
+// middleware CORS headers
 // (vérifier si je laisse PATCH ET OPTIONS)
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -35,7 +35,7 @@ app.use((req, res, next) => {
 });
 
 
-// middleware pour obtenir un objet JS
+// middleware parsing req
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 

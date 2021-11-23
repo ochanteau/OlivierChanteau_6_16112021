@@ -1,10 +1,16 @@
+const sauce = require('../models/sauce');
 const Sauce = require('../models/sauce');
 
 
+
+
+exports.getAllSauces = (req, res, next)=> {
+     sauce.find()
+        .then(sauces => res.status(200).json(sauces))
+        .catch(error => res.status(400).json({ error }));}
+
 exports.createSauce = (req, res, next) => {
       const sauceObject = JSON.parse(req.body.sauce);
-      console.log(sauceObject)
-    
       const sauce = new Sauce({
         ...sauceObject,
         likes: 0 ,
