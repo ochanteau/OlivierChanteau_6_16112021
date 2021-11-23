@@ -9,6 +9,14 @@ dotenv.config();
 // import  mongoose et connection à la base de donnée
 const mongoose = require('mongoose');
 
+// import du module path 
+const path = require('path');
+
+// import des routes
+const userRoutes = require('./routes/user');
+const saucesRoutes = require('./routes/sauces')
+
+// connection base de donnée
 mongoose.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@cluster0.jiuzr.mongodb.net/cluster0?retryWrites=true&w=majority`,
   { useNewUrlParser: true,
     useUnifiedTopology: true })
@@ -17,7 +25,7 @@ mongoose.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PA
 
 
 
-// middleware pour autoriser les connections à l'API
+// middleware CORS
 // (vérifier si je laisse PATCH ET OPTIONS)
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -27,21 +35,13 @@ app.use((req, res, next) => {
 });
 
 
-
 // middleware pour obtenir un objet JS
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-
-// import du module path 
-const path = require('path');
-
 // middleware pour renvoyer les fichiers images
 app.use('/images', express.static(path.join(__dirname, 'images')))
 
-// import des routes
-const userRoutes = require('./routes/user');
-const saucesRoutes = require('./routes/sauces')
 // routers
 app.use('/api/auth', userRoutes);
 app.use('/api/sauces', saucesRoutes);

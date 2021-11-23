@@ -6,12 +6,12 @@ const sauceSchema = mongoose.Schema({
   manufacturer: { type: String, required: true },
   description: { type: String, required: true },
   mainPepper: { type: String, required: true },
-  imageUrl: { type: String },
+  imageUrl: { type: String,required: true },
   heat: { type: Number, required: true },
-  likes: { type: Number },
-  dislikes: { type: Number },
-  usersLiked: { type: [String] },
-  usersDisliked: { type: [String] }
+  likes: { type: Number,required: true },
+  dislikes: { type: Number,required: true },
+  usersLiked: { type: [String],required: true },
+  usersDisliked: { type: [String],required: true }
 });
 
 
@@ -32,4 +32,3 @@ const sauceSchema = mongoose.Schema({
 
 module.exports = mongoose.model('sauce', sauceSchema);
 
-// reverifier le modele de sauce notamment les required
