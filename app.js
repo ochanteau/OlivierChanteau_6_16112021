@@ -6,7 +6,7 @@ const app = express();
 const dotenv = require("dotenv");
 dotenv.config();
 
-// import  mongoose et connection à la base de donnée
+// import  mongoose
 const mongoose = require('mongoose');
 
 // import du module path 
@@ -42,6 +42,14 @@ app.use(express.urlencoded({ extended: false }));
 // middleware pour renvoyer les fichiers images
 app.use('/images', express.static(path.join(__dirname, 'images')))
 
+
+// test like 
+const Sauce= require("./models/sauce")
+
+
+
+
+
 // routers
 app.use('/api/auth', userRoutes);
 app.use('/api/sauces', saucesRoutes);
@@ -52,3 +60,54 @@ app.use('/api/sauces', saucesRoutes);
 
 
 module.exports = app;
+
+
+
+// app.post("/api/sauces/:id/like", (req,res,next)=>{
+//   console.log(req.body);
+//   Sauce.findOne({ _id: req.params.id })
+//     .then(sauce => {
+//       console.log(sauce);
+//       console.log(req.body.like)
+//       if (req.body.like==1) {
+       
+//           sauce.likes += 1;
+//           console.log(sauce.likes);
+//           sauce.usersLiked.push(req.body.userId);
+//           console.log(sauce);
+//           Sauce.updateOne({ _id: req.params.id }, { ...sauce, _id: req.params.id })
+//               .then(() => res.status(200).json({ message: 'votre commentaire a bien été pris en compte !'}))
+//               .catch(error => res.status(400).json({ error }));
+//       }
+//       else if(req.body.like==2) {
+       
+//           sauce.dislikes += 1;
+//           sauce.usersDisliked.push(req.body.userId);
+//           Sauce.updateOne({ _id: req.params.id }, { ...sauce, _id: req.params.id })
+//               .then(() => res.status(200).json({ message: 'votre commentaire a bien été pris en compte !'}))
+//               .catch(error => res.status(400).json({ error }));
+//                }
+//       else {
+//           checkUsersLiked = sauce.usersLiked.findIndex(x=>x == req.body.userId);
+//           if (checkUsersLiked >=0) {
+//             sauce.likes -= 1;
+//             sauce.usersLiked.splice(checkUsersLiked,1);
+//             Sauce.updateOne({ _id: req.params.id }, { ...sauce, _id: req.params.id })
+//               .then(() => res.status(200).json({ message: 'votre commentaire a bien été pris en compte !'}))
+//               .catch(error => res.status(400).json({ error }));
+//           }
+//           else {
+//             checkUsersDisliked = sauce.usersDisliked.findIndex(x=>x == req.body.userId);
+//             sauce.dislikes -= 1;
+//             sauce.usersDisliked.splice(checkUsersDisliked,1);
+//             Sauce.updateOne({ _id: req.params.id }, { ...sauce, _id: req.params.id })
+//               .then(() => res.status(200).json({ message: 'votre commentaire a bien été pris en compte !'}))
+//               .catch(error => res.status(400).json({ error }));
+//           }
+
+          
+//       }
+//     })
+//     .catch(error => res.status(404).json({ error }))
+
+// });
