@@ -21,6 +21,7 @@ exports.getOneSauce = (req, res, next) => {
 
 exports.createSauce = (req, res, next) => {
       const sauceObject = JSON.parse(req.body.sauce);
+      if ( req.token.userId === sauceObject.userId) {
       const sauce = new Sauce({
         ...sauceObject,
         likes: 0 ,
@@ -30,12 +31,28 @@ exports.createSauce = (req, res, next) => {
         imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
        
       });
-      console.log(sauce);
+      
       sauce.save()
         .then(() => res.status(201).json({ message: 'Sauce enregistrée !'}))
         .catch(error => res.status(400).json({ error }));
+      }
+      else {res.status(401).json({ error: new Error('Invalid request!')});}
     }
 
+
+
+    // exports.deleteSauce = (req, res, next) => {
+    //   Sauce.findOne({ _id: req.params.id })
+    //     .then(sauce => {
+    //       const filename = sauce.imageUrl.split('/images/')[1];
+    //       fs.unlink(`images/${filename}`, () => {
+    //         Sauce.deleteOne({ _id: req.params.id })
+    //           .then(() => res.status(200).json({ message: 'Sauce supprimée !'}))
+    //           .catch(error => res.status(400).json({ error }));
+    //       });
+    //     })
+    //     .catch(error => res.status(500).json({ error }));
+    // };
 
 
     exports.deleteSauce = (req, res, next) => {
@@ -50,6 +67,7 @@ exports.createSauce = (req, res, next) => {
         })
         .catch(error => res.status(500).json({ error }));
     };
+
 
 
   
@@ -176,6 +194,7 @@ exports.likeDislike = (req, res, next) => {
       .then(sauce=>{
         if (sauce.usersLiked.includes(req.params.id) || sauce.usersDisliked.includes(req.params.id)  ) {
           res.status(200).json({ message: 'vous avez déja partagé votre avis pour cette sauce !'});
+          // throw new Error('un seul like ou dislike possible!');
         }
         else {
           Sauce.updateOne({ _id: req.params.id }, { $inc: {likes: 1 }, $push : {usersLiked:req.params.id}})
@@ -205,7 +224,7 @@ exports.likeDislike = (req, res, next) => {
       })
       .catch(error => res.status(500).json({ error }));
       break;
-      
+
     case 0 :
      
       Sauce.findOne({ _id: req.params.id })

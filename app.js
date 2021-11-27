@@ -43,9 +43,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/images', express.static(path.join(__dirname, 'images')))
 
 
-// test like 
-const Sauce= require("./models/sauce")
-
 
 
 
