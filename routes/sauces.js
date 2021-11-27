@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const auth = require ('../middleware/auth')
-
+const sauceOwner = require("../middleware/sauceOwner")
 const saucesCtrl = require('../controllers/sauces');
 const multer = require('../middleware/multer-config');
 
