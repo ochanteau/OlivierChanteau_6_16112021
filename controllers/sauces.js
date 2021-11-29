@@ -21,6 +21,7 @@ exports.getOneSauce = (req, res, next) => {
 
 exports.createSauce = (req, res, next) => {
       const sauceObject = JSON.parse(req.body.sauce);
+
       if ( req.token.userId === sauceObject.userId) {
       const sauce = new Sauce({
         ...sauceObject,
@@ -36,7 +37,7 @@ exports.createSauce = (req, res, next) => {
         .then(() => res.status(201).json({ message: 'Sauce enregistrée !'}))
         .catch(error => res.status(400).json({ error }));
       }
-      else {res.status(401).json({ error: new Error('Invalid request!')});}
+      else {res.status(403).json({ error: new Error('Invalid request!')});}
     }
 
 
