@@ -90,8 +90,8 @@ exports.likeDislike = (req, res, next) => {
           Sauce.findOne({ _id: req.params.id })
           .then(sauce=>{
             if (sauce.usersLiked.includes(req.body.userId) || sauce.usersDisliked.includes(req.body.userId)  ) {
-              res.status(200).json({ message: 'vous avez déja partagé votre avis pour cette sauce !'});
-              // throw new Error('un seul like ou dislike possible!');
+              res.status(400).json({ message: 'vous avez déja partagé votre avis pour cette sauce !'});
+              
             }
             else {
               Sauce.updateOne({ _id: req.params.id }, { $inc: {likes: 1 }, $push : {usersLiked:req.body.userId}})
@@ -108,7 +108,7 @@ exports.likeDislike = (req, res, next) => {
           Sauce.findOne({ _id: req.params.id })
           .then(sauce=>{
             if (sauce.usersLiked.includes(req.body.userId) || sauce.usersDisliked.includes(req.body.userId)  ) {
-              res.status(200).json({ message: 'vous avez déja partagé votre avis pour cette sauce !'});
+              res.status(400).json({ message: 'vous avez déja partagé votre avis pour cette sauce !'});
             }
             else {
               Sauce.updateOne({ _id: req.params.id }, {$inc: {dislikes: 1 }, $push : {usersDisliked:req.body.userId}})
@@ -140,7 +140,10 @@ exports.likeDislike = (req, res, next) => {
             }
           })
           .catch(error => res.status(500).json({ error }));
-
+          break;
+        
+        default:
+          res.status(400).json({ message: 'Invalid request!'});
           
       }
     }
@@ -156,55 +159,4 @@ exports.likeDislike = (req, res, next) => {
 
 
 
-// exports.likeUnlike = (req, res, next) => {
-//   console.log(req.body);
-//   Sauce.findOne({ _id: req.params.id })
-//     .then(sauce => {
-//       console.log(sauce);
-//       console.log(req.body.like)
-      
-//       switch (req.body.like) {
-//         case 1 :
-//           sauce.likes += 1;
-//           console.log(sauce.likes);
-//           sauce.usersLiked.push(req.body.userId);
-//           console.log(sauce);
-//           console.log(req.params.id);
-//           Sauce.updateOne({ _id: req.params.id }, { ...sauce, _id: req.params.id })
-//               .then(() => {
-//                 console.log("test");
-//                 res.status(200).json({ message: 'votre commentaire a bien été pris en compte !'})
-//               } )
-//               .catch(error => res.status(400).json({ error }));
-//           break;
-//         case -1 :
-//           sauce.dislikes += 1;
-//           sauce.usersDisliked.push(req.body.userId);
-//           Sauce.updateOne({ _id: req.params.id }, { ...sauce, _id: req.params.id })
-//               .then(() => res.status(200).json({ message: 'votre commentaire a bien été pris en compte !'}))
-//               .catch(error => res.status(400).json({ error }));
-//           break;
-//         case 0 :
-//           checkUsersLiked = sauce.usersLiked.findIndex(x=>x == req.body.userId);
-//           if (checkUsersLiked >=0) {
-//             sauce.likes -= 1;
-//             sauce.usersLiked.splice(checkUsersLiked,1);
-//             Sauce.updateOne({ _id: req.params.id }, { ...sauce, _id: req.params.id })
-//               .then(() => res.status(200).json({ message: 'votre commentaire a bien été pris en compte !'}))
-//               .catch(error => res.status(400).json({ error }));
-//           }
-//           else {
-//             checkUsersDisliked = sauce.usersDisliked.findIndex(x=>x == req.body.userId);
-//             sauce.dislikes -= 1;
-//             sauce.usersDisliked.splice(checkUsersDisliked,1);
-//             Sauce.updateOne({ _id: req.params.id }, { ...sauce, _id: req.params.id })
-//               .then(() => res.status(200).json({ message: 'votre commentaire a bien été pris en compte !'}))
-//               .catch(error => res.status(400).json({ error }));
-//           }
-
-          
-//       }
-//     })
-//     .catch(error => res.status(404).json({ error }))
-// };
 
