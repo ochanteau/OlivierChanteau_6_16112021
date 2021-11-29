@@ -147,105 +147,139 @@ exports.createSauce = (req, res, next) => {
 
 // exports.likeDislike = (req, res, next) => {
   
-//       switch (req.body.like) {
-//         case 1 :
+//   switch (req.body.like) {
+//     case 1 :
+//       Sauce.findOne({ _id: req.params.id })
+//       .then(sauce=>{
+//         if (sauce.usersLiked.includes(req.params.id) || sauce.usersDisliked.includes(req.params.id)  ) {
+//           res.status(200).json({ message: 'vous avez déja partagé votre avis pour cette sauce !'});
+//           // throw new Error('un seul like ou dislike possible!');
+//         }
+//         else {
 //           Sauce.updateOne({ _id: req.params.id }, { $inc: {likes: 1 }, $push : {usersLiked:req.params.id}})
-//               .then(() => {
-//                 res.status(200).json({ message: 'votre commentaire a bien été pris en compte !'})
-//               } )
-//               .catch(error => res.status(400).json({ error }));
-//           break;
-//         case -1 :
-//           Sauce.updateOne({ _id: req.params.id }, { $inc: {dislikes: 1 }, $push : {usersDisliked:req.params.id}})
 //           .then(() => {
-//             res.status(200).json({ message: 'votre commentaire a bien été pris en compte !'})
-//           } )
+//              res.status(200).json({ message: 'votre commentaire a bien été pris en compte !'})
+//            })
 //           .catch(error => res.status(400).json({ error }));
-//           break;
-//         case 0 :
-         
-//           Sauce.findOne({ _id: req.params.id })
-//           .then( sauce=>{
-            
-//             if (sauce.usersLiked.includes(req.params.id)) {
-//             Sauce.updateOne({ _id: req.params.id }, {$inc: {likes: -1 }, $pull : {usersLiked:req.params.id}})
-//               .then(() => res.status(200).json({ message: 'votre commentaire a bien été pris en compte !'}))
-//               .catch(error => res.status(400).json({ error }));
-//             }
-//             else {
-            
-//             Sauce.updateOne({ _id: req.params.id }, {$inc: {dislikes: -1 }, $pull : {usersDisliked:req.params.id}})
-//               .then(() => res.status(200).json({ message: 'votre commentaire a bien été pris en compte !'}))
-//               .catch(error => res.status(400).json({ error }));
-//             }
-//           })
-//           .catch(error => res.status(500).json({ error }));
+//         }
 
-          
-//       }
-  
+//       })
+//       .catch(error => res.status(500).json({ error }));
+//       break;
+//     case -1 :
+//       Sauce.findOne({ _id: req.params.id })
+//       .then(sauce=>{
+//         if (sauce.usersLiked.includes(req.params.id) || sauce.usersDisliked.includes(req.params.id)  ) {
+//           res.status(200).json({ message: 'vous avez déja partagé votre avis pour cette sauce !'});
+//         }
+//         else {
+//           Sauce.updateOne({ _id: req.params.id }, {$inc: {dislikes: 1 }, $push : {usersDisliked:req.params.id}})
+//           .then(() => {
+//              res.status(200).json({ message: 'votre commentaire a bien été pris en compte !'})
+//            })
+//           .catch(error => res.status(400).json({ error }));
+//         }
+
+//       })
+//       .catch(error => res.status(500).json({ error }));
+//       break;
+
+//     case 0 :
+     
+//       Sauce.findOne({ _id: req.params.id })
+//       .then( sauce=>{
+        
+//         if (sauce.usersLiked.includes(req.params.id)) {
+//         Sauce.updateOne({ _id: req.params.id }, {$inc: {likes: -1 }, $pull : {usersLiked:req.params.id}})
+//           .then(() => res.status(200).json({ message: 'votre commentaire a bien été pris en compte !'}))
+//           .catch(error => res.status(400).json({ error }));
+//         }
+//         else {
+        
+//         Sauce.updateOne({ _id: req.params.id }, {$inc: {dislikes: -1 }, $pull : {usersDisliked:req.params.id}})
+//           .then(() => res.status(200).json({ message: 'votre commentaire a bien été pris en compte !'}))
+//           .catch(error => res.status(400).json({ error }));
+//         }
+//       })
+//       .catch(error => res.status(500).json({ error }));
+
+      
+//   }
+
 // };
 
 
 exports.likeDislike = (req, res, next) => {
   
-  switch (req.body.like) {
-    case 1 :
-      Sauce.findOne({ _id: req.params.id })
-      .then(sauce=>{
-        if (sauce.usersLiked.includes(req.params.id) || sauce.usersDisliked.includes(req.params.id)  ) {
-          res.status(200).json({ message: 'vous avez déja partagé votre avis pour cette sauce !'});
-          // throw new Error('un seul like ou dislike possible!');
-        }
-        else {
-          Sauce.updateOne({ _id: req.params.id }, { $inc: {likes: 1 }, $push : {usersLiked:req.params.id}})
-          .then(() => {
-             res.status(200).json({ message: 'votre commentaire a bien été pris en compte !'})
-           })
-          .catch(error => res.status(400).json({ error }));
-        }
+    if (req.body.userId && req.body.userId === req.token.userId) {
+      switch (req.body.like) {
+        case 1 :
+          Sauce.findOne({ _id: req.params.id })
+          .then(sauce=>{
+            if (sauce.usersLiked.includes(req.params.id) || sauce.usersDisliked.includes(req.params.id)  ) {
+              res.status(200).json({ message: 'vous avez déja partagé votre avis pour cette sauce !'});
+              // throw new Error('un seul like ou dislike possible!');
+            }
+            else {
+              Sauce.updateOne({ _id: req.params.id }, { $inc: {likes: 1 }, $push : {usersLiked:req.params.id}})
+              .then(() => {
+                res.status(200).json({ message: 'votre commentaire a bien été pris en compte !'})
+              })
+              .catch(error => res.status(400).json({ error }));
+            }
 
-      })
-      .catch(error => res.status(500).json({ error }));
-      break;
-    case -1 :
-      Sauce.findOne({ _id: req.params.id })
-      .then(sauce=>{
-        if (sauce.usersLiked.includes(req.params.id) || sauce.usersDisliked.includes(req.params.id)  ) {
-          res.status(200).json({ message: 'vous avez déja partagé votre avis pour cette sauce !'});
-        }
-        else {
-          Sauce.updateOne({ _id: req.params.id }, {$inc: {dislikes: 1 }, $push : {usersDisliked:req.params.id}})
-          .then(() => {
-             res.status(200).json({ message: 'votre commentaire a bien été pris en compte !'})
-           })
-          .catch(error => res.status(400).json({ error }));
-        }
+          })
+          .catch(error => res.status(500).json({ error }));
+          break;
+        case -1 :
+          Sauce.findOne({ _id: req.params.id })
+          .then(sauce=>{
+            if (sauce.usersLiked.includes(req.params.id) || sauce.usersDisliked.includes(req.params.id)  ) {
+              res.status(200).json({ message: 'vous avez déja partagé votre avis pour cette sauce !'});
+            }
+            else {
+              Sauce.updateOne({ _id: req.params.id }, {$inc: {dislikes: 1 }, $push : {usersDisliked:req.params.id}})
+              .then(() => {
+                res.status(200).json({ message: 'votre commentaire a bien été pris en compte !'})
+              })
+              .catch(error => res.status(400).json({ error }));
+            }
 
-      })
-      .catch(error => res.status(500).json({ error }));
-      break;
+          })
+          .catch(error => res.status(500).json({ error }));
+          break;
 
-    case 0 :
-     
-      Sauce.findOne({ _id: req.params.id })
-      .then( sauce=>{
+        case 0 :
         
-        if (sauce.usersLiked.includes(req.params.id)) {
-        Sauce.updateOne({ _id: req.params.id }, {$inc: {likes: -1 }, $pull : {usersLiked:req.params.id}})
-          .then(() => res.status(200).json({ message: 'votre commentaire a bien été pris en compte !'}))
-          .catch(error => res.status(400).json({ error }));
-        }
-        else {
-        
-        Sauce.updateOne({ _id: req.params.id }, {$inc: {dislikes: -1 }, $pull : {usersDisliked:req.params.id}})
-          .then(() => res.status(200).json({ message: 'votre commentaire a bien été pris en compte !'}))
-          .catch(error => res.status(400).json({ error }));
-        }
-      })
-      .catch(error => res.status(500).json({ error }));
+          Sauce.findOne({ _id: req.params.id })
+          .then( sauce=>{
+            
+            if (sauce.usersLiked.includes(req.params.id)) {
+            Sauce.updateOne({ _id: req.params.id }, {$inc: {likes: -1 }, $pull : {usersLiked:req.params.id}})
+              .then(() => res.status(200).json({ message: 'votre commentaire a bien été pris en compte !'}))
+              .catch(error => res.status(400).json({ error }));
+            }
+            else {
+            
+            Sauce.updateOne({ _id: req.params.id }, {$inc: {dislikes: -1 }, $pull : {usersDisliked:req.params.id}})
+              .then(() => res.status(200).json({ message: 'votre commentaire a bien été pris en compte !'}))
+              .catch(error => res.status(400).json({ error }));
+            }
+          })
+          .catch(error => res.status(500).json({ error }));
 
-      
-  }
+          
+      }
+    }
+
+    else {res.status(401).json({
+      error: new Error('Invalid request!')
+    });}
+
 
 };
+
+
+
+
+
