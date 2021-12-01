@@ -4,8 +4,9 @@ const auth = require ('../middleware/auth')
 const sauceOwner = require("../middleware/sauceOwner")
 const saucesCtrl = require('../controllers/sauces');
 const multer = require('../middleware/multer-config');
+const validator = require('../middleware/sauceValidator');
 
-router.post('/', auth, multer, saucesCtrl.createSauce);
+router.post('/', auth, multer,validator.createSauce, saucesCtrl.createSauce);
 router.get('/', auth, saucesCtrl.getAllSauces);
 router.get('/:id',auth, saucesCtrl.getOneSauce);
 
