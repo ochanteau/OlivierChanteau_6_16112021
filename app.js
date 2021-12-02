@@ -23,6 +23,11 @@ mongoose.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PA
   .then(() => console.log('Connexion à MongoDB réussie !'))
   .catch(() => console.log('Connexion à MongoDB échouée !'));
 
+//  import et confi middleware Morgan
+const morgan = require('morgan');
+app.use(morgan('dev'));
+
+
 
 
 // middleware CORS headers

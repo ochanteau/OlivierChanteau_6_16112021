@@ -32,7 +32,8 @@ exports.createSauce = (req,res,next) => {
             /[^a-zA-Z0-9 ]/.test(sauce.description)||
             /[^a-zA-Z0-9 ]/.test(sauce.mainPepper)||
             !(typeof sauce.heat  == "number") ||
-            (sauce.heat>10))
+            (sauce.heat>10)
+            )
             {
                 const filename = req.file.path;
                 console.log(filename);
