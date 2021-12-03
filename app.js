@@ -28,7 +28,9 @@ const morgan = require('morgan');
 app.use(morgan('dev'));
 
 
-
+// import et config helmet 
+const helmet = require('helmet');
+app.use(helmet());
 
 // middleware CORS headers
 // (vérifier si je laisse PATCH ET OPTIONS)
