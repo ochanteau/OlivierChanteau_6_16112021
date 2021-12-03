@@ -46,6 +46,10 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// import et confir express-mongo -sanitize
+const mongoSanitize = require('express-mongo-sanitize');
+app.use(mongoSanitize());
+
 // middleware pour renvoyer les fichiers images
 app.use('/images', express.static(path.join(__dirname, 'images')))
 
