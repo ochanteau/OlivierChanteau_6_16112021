@@ -1,14 +1,15 @@
 // import du module bcrypt
 const bcrypt = require ("bcrypt");
+// import module Dotenv pour les varibales d'environnement
+require("dotenv").config();
+// import du module jwt
+const jwt = require('jsonwebtoken');
 // import du model user
 const User = require("../models/user");
 
-// import module Dotenv pour les varibales d'environnement
-const dotenv = require("dotenv");
-dotenv.config();
 
-// import du module jwt
-const jwt = require('jsonwebtoken');
+
+
 
 // fonction pour s inscrire
 
