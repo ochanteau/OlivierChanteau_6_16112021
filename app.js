@@ -32,6 +32,13 @@ app.use(morgan('dev'));
 const helmet = require('helmet');
 app.use(helmet());
 
+// import et config express-rate-limit
+const rateLimit = require("express-rate-limit");
+app.use(rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100 // limit each IP to 100 requests per windowMs
+}));
+
 // middleware CORS headers
 // (vérifier si je laisse PATCH ET OPTIONS)
 app.use((req, res, next) => {
