@@ -1,12 +1,14 @@
+// import module multer pour la gestion des contents type multipart/form-data
 const multer = require('multer');
 
-
+// constante dictionnairede type MIME pour trouver l'extension de fichier appropriée
 const MIME_TYPES = {
   'image/jpg': 'jpg',
   'image/jpeg': 'jpg',
   'image/png': 'png'
 };
 
+// configuration de multer 
 const storage = multer.diskStorage({
   destination: (req, file, callback) => {
     callback(null, 'images');

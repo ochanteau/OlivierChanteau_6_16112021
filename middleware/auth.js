@@ -2,11 +2,14 @@
 const jwt = require('jsonwebtoken');
 
 // import module Dotenv pour les varibales d'environnement
-const dotenv = require("dotenv");
-dotenv.config();
+require("dotenv").config();
 
 
 
+/*
+* middleware d'authentification, verifie que le token n'a pas été altéré
+* Assigne le resultat à req.token ou renvoie une erreur.
+*/
 module.exports = (req, res, next) => {
   try {
     const token = req.headers.authorization.split(' ')[1];

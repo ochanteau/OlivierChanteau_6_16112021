@@ -1,3 +1,4 @@
+// import du module fs de gestion des fichiers systeme
 const fs = require('fs');
 
 

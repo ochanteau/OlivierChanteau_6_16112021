@@ -70,7 +70,7 @@ app.use(express.urlencoded({ extended: false }));
 */
 app.use(mongoSanitize());
 
-// middleware pour renvoyer les fichiers images
+// middleware de gestion des requetes d'obtention d'images
 app.use('/images', express.static(path.join(__dirname, 'images')))
 
 
