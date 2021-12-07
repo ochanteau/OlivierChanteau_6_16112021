@@ -6,13 +6,13 @@ const uniqueValidator = require('mongoose-unique-validator');
 const MongooseErrors = require('mongoose-errors')
 
 
-// creation du schéma utilisateur
+// creation du schéma User
 const userSchema = mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true }
 });
 
-//  configuration des plugins complémentaires a mongooose
+//  configuration des plugins complémentaires a mongoose
 userSchema.plugin(uniqueValidator);
 userSchema.plugin(MongooseErrors);
 

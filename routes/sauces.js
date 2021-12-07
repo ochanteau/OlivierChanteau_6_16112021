@@ -23,13 +23,13 @@ const saucesCtrl = require('../controllers/sauces');
 
 
 // route creation de sauce
-router.post('/', auth, multer,validator.createSauce, saucesCtrl.createSauce);
+router.post('/', auth, multer,validator, saucesCtrl.createSauce);
 //route pour obtenir toutes les sauces
 router.get('/', auth, saucesCtrl.getAllSauces);
 //route pour obtenir une sauce
 router.get('/:id',auth, saucesCtrl.getOneSauce);
 // route pour modifier une sauce 
-router.put('/:id',auth,sauceOwner,multer,validator.modifySauce,saucesCtrl.modifySauce);
+router.put('/:id',auth,sauceOwner,multer,validator,saucesCtrl.modifySauce);
 //route pour supprimer une sauce 
 router.delete('/:id',auth,sauceOwner,saucesCtrl.deleteSauce);
 //route pour liker ou disliker une sauce
