@@ -36,8 +36,8 @@ function deletePicture (req,res, status){
         const filename = req.file.path;
             fs.unlink(`${filename}`, () => { 
                 switch (status) {
-                    case 401 :
-                        res.status(401).send(new Error('Invalid user ID'));
+                    case 403 :
+                        res.status(403).send(new Error('Invalid user ID'));
                     break;
                     case 400:
                         res.status(400).send(new Error('Bad request!'));
@@ -49,8 +49,8 @@ function deletePicture (req,res, status){
     }
     else {
         switch (status) {
-            case 401 :
-                res.status(401).send(new Error('Invalid user ID'));
+            case 403 :
+                res.status(403).send(new Error('Invalid user ID'));
              break;
             case 400 :
                 res.status(400).send(new Error('Bad request!'));
@@ -69,7 +69,7 @@ module.exports = (req,res,next) => {
         // assignation du body de la requete en fonction du content type
         const sauce = req.file? JSON.parse(req.body.sauce) : req.body;
         // comparaison du userId du body de la requete et du userId du token
-        if (userIdCompared(req,sauce))  {deletePicture(req,res,401);}
+        if (userIdCompared(req,sauce))  {deletePicture(req,res,403);}
         else {
             // verification des données saisies par l'utilisateur
             if (verifySauce(sauce)){deletePicture(req,res,400);}

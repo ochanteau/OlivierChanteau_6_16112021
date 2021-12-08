@@ -99,6 +99,7 @@ exports.likeDislike = (req, res, next) => {
     if (req.body.userId && req.body.userId === req.token.userId) {
       // switch case en fonction de la valeur du req.body.like (1,-1,0)
       switch (req.body.like) {
+
         // cas 1 : like
         case 1 :
           // recherche de la sauce en BD
@@ -122,6 +123,7 @@ exports.likeDislike = (req, res, next) => {
           })
           .catch(error => res.status(500).json({ error }));
           break;
+
         // cas -1 : dislike
         case -1 :
           // recherche de la sauce en BD
@@ -144,6 +146,7 @@ exports.likeDislike = (req, res, next) => {
           })
           .catch(error => res.status(500).json({ error }));
           break;
+          
         // cas 0 : annulation du like ou du dislike
         case 0 :
           // recherche de la sauce en BD

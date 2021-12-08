@@ -20,8 +20,6 @@ const saucesCtrl = require('../controllers/sauces');
 * Sur la route DELETE et modification de sauce on appelle egalement SauceOwner   
 */
 
-
-
 // route creation de sauce
 router.post('/', auth, multer,validator, saucesCtrl.createSauce);
 //route pour obtenir toutes les sauces
