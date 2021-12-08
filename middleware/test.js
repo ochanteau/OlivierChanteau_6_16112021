@@ -186,3 +186,65 @@ exports.createSauce = (req,res,next) => {
 
 
     }
+
+    // exports.createSauce = (req,res,next) => {
+//     // parsing req.body.sauce
+//     const sauce = JSON.parse(req.body.sauce);
+
+//     // verification
+//     if ( !req.token.userId || (req.token.userId!= sauce.userId))
+//         {
+//             const filename = req.file.path;
+//             console.log(filename);
+//             fs.unlink(`${filename}`, () => {     
+//                 res.status(401).send(new Error('Invalid user ID'))
+//                 }
+//             )
+//         }
+//     else {
+//         if (!req.body.sauce||!sauce.name|| !sauce.manufacturer || !sauce.description|| !sauce.mainPepper|| !sauce.heat||
+//             /[^a-zA-Z0-9 ]/.test(sauce.name) ||
+//             /[^a-zA-Z0-9 ]/.test(sauce.manufacturer) ||
+//             /[^a-zA-Z0-9.,!() ]/.test(sauce.description)||
+//             /[^a-zA-Z0-9 ]/.test(sauce.mainPepper)||
+//             !(typeof sauce.heat  == "number") ||
+//             (sauce.heat>10)
+//             )
+//             {
+//                 const filename = req.file.path;
+//                 console.log(filename);
+//                 fs.unlink(`${filename}`, () => {     
+//                     res.status(400).send(new Error('Bad request!'))
+//                     }
+//                 )
+//             }
+//         else {next()}
+
+//     
+
+
+
+// exports.modifySauce = (req,res,next) => {
+//     const sauce = req.file? JSON.parse(req.body.sauce) : req.body;
+
+//     if (userIdCompared(req,sauce))  {deletePicture(req,res,401);}
+//     else {
+//             if (verifySauce(sauce)) {deletePicture(req,res,400);}
+//             else {next()}
+//     }
+
+// }
+
+// exports.createSauce = (req,res,next) => {
+ 
+//     const sauce = JSON.parse(req.body.sauce);
+  
+//     if (userIdCompared(req,sauce))  {deletePicture(req,res,401);}
+//     else {
+//         if (verifySauce(sauce)){deletePicture(req,res,400);}
+//         else {next()}
+//     }
+    
+
+
+//     }

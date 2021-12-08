@@ -107,7 +107,7 @@ exports.likeDislike = (req, res, next) => {
           .then(sauce=>{
             // verification si le userId a déja été utilisé pour liker ou disliker
             if (sauce.usersLiked.includes(req.body.userId) || sauce.usersDisliked.includes(req.body.userId)  ) {
-              res.status(400).json({ message: 'vous avez déja partagé votre avis pour cette sauce !'});
+              res.status(403).json({ message: 'vous avez déja partagé votre avis pour cette sauce !'});
               
             }
             // si ce n'est pas le cas MAJ de la sauce en BD
@@ -131,7 +131,7 @@ exports.likeDislike = (req, res, next) => {
           .then(sauce=>{
             // verification si le userId a déja été utilisé pour liker ou disliker
             if (sauce.usersLiked.includes(req.body.userId) || sauce.usersDisliked.includes(req.body.userId)  ) {
-              res.status(400).json({ message: 'vous avez déja partagé votre avis pour cette sauce !'});
+              res.status(403).json({ message: 'vous avez déja partagé votre avis pour cette sauce !'});
             }
             // si ce n'est pas le cas MAJ de la sauce en BD
             else {
