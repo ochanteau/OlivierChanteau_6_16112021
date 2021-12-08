@@ -176,7 +176,7 @@ exports.likeDislike = (req, res, next) => {
       }
     }
 
-    else {res.status(401).json({
+    else {res.status(403).json({
       error: new Error('Invalid request!')
     });}
 
