@@ -45,7 +45,7 @@ app.use(helmet());
 */
 app.use(rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100 // limit each IP to 100 requests per windowMs
+  max: 300 // limit each IP to 300 requests per windowMs
 }));
 
 
@@ -73,12 +73,9 @@ app.use(mongoSanitize());
 // middleware de gestion des requetes d'obtention d'images
 app.use('/images', express.static(path.join(__dirname, 'images')))
 
-
 // middleware de routing
 app.use('/api/auth', userRoutes);
 app.use('/api/sauces', saucesRoutes);
-
-
 
 module.exports = app;
 

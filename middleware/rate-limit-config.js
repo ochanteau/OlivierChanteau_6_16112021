@@ -20,7 +20,7 @@ exports.createAccountLimiter = rateLimit({
 */
   exports.loginAccountLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 10, // start blocking after 5 requests
+    max: 15, // start blocking after 15 requests
     message:
       "Too many login requests from this IP, please try again after fifteen minutes"
   });

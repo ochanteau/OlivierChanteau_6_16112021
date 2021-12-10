@@ -74,10 +74,7 @@ module.exports = (req,res,next) => {
             // verification des données saisies par l'utilisateur
             if (verifySauce(sauce)){deletePicture(req,res,400);}
             else {next()}
-        }
-        
-    
-    
+        } 
         }
     
 
