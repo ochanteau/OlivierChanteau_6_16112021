@@ -18,10 +18,9 @@ function verifySauce (sauce) {
         /[^a-zA-Z0-9 ]/.test(sauce.manufacturer) ||
         /[^a-zA-Z0-9.,! ]/.test(sauce.description)||
         /[^a-zA-Z0-9 ]/.test(sauce.mainPepper)||
-        !(typeof sauce.heat  == "number") ||
-        (sauce.heat>10) )
+        !(typeof sauce.heat  == "number") ||(sauce.heat>10) )
         {return true}
-    else{return false}
+    else {return false}
 }
 
 

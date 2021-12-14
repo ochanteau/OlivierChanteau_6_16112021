@@ -17,7 +17,6 @@ const userCtrl = require('../controllers/user');
 */
 router.post('/signup',accountLimiter.createAccountLimiter , userValidator, userCtrl.signup);
 
-
 /*
 * route "/login", appel des middlewares pour limiter le nombre de login  avec la meme IP,
 * et du controllers "login"
